@@ -28,29 +28,28 @@ const mapTitle=document.getElementById('map-status-title');
 let contractMap;
 let contractMarkers=[];
 
-function markerIcon(status){
-  return L.divIcon({className:'',html:`<div class="contract-marker ${status}"></div>`,iconSize:[22,22],iconAnchor:[11,11],popupAnchor:[0,-12]});
-}
-
 function renderContractMap(status='all'){
-  if(!window.L)return;
   mapPanel.classList.add('is-visible');
   hero.classList.add('map-open');
-  if(!contractMap){
-    contractMap=L.map('contract-map',{scrollWheelZoom:false}).setView([36.4,127.7],7);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap'}).addTo(contractMap);
-  }
-  contractMarkers.forEach(m=>m.remove());
-  contractMarkers=[];
+  const markerLayer=document.getElementById('map-markers');
+  const placeCard=document.getElementById('map-place-card');
+  markerLayer.innerHTML='';
+  placeCard.hidden=true;
   const selected=status==='all'?contractLocations:contractLocations.filter(x=>x.status===status);
   selected.forEach(x=>{
-    const marker=L.marker([x.lat,x.lng],{icon:markerIcon(x.status)}).addTo(contractMap).bindPopup(`<b>${x.name}</b><br>${x.detail}`);
-    contractMarkers.push(marker);
+    const marker=document.createElement('button');
+    marker.type='button';
+    marker.className=`map-marker ${x.status}`;
+    marker.style.left=`${12+((x.lng-126)/(129-126))*76}%`;
+    marker.style.top=`${8+((38.7-x.lat)/(38.7-34))*82}%`;
+    marker.setAttribute('aria-label',`${x.name} ${x.detail}`);
+    marker.addEventListener('click',()=>{
+      placeCard.innerHTML=`<b>${x.name}</b>${x.detail}`;
+      placeCard.hidden=false;
+    });
+    markerLayer.appendChild(marker);
   });
-  const bounds=L.latLngBounds(selected.map(x=>[x.lat,x.lng]));
-  contractMap.fitBounds(bounds,{padding:[30,30],maxZoom:10});
   mapTitle.textContent=status==='all'?`전체 현황 ${selected.length}곳`:`${statusNames[status]} 지역 ${selected.length}곳`;
-  setTimeout(()=>contractMap.invalidateSize(),80);
 }
 
 document.querySelectorAll('.status-card').forEach(card=>card.addEventListener('click',()=>{
