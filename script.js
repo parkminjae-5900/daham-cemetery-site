@@ -40,8 +40,8 @@ function renderContractMap(status='all'){
     const marker=document.createElement('button');
     marker.type='button';
     marker.className=`map-marker ${x.status}`;
-    marker.style.left=`${12+((x.lng-126)/(129-126))*76}%`;
-    marker.style.top=`${8+((38.7-x.lat)/(38.7-34))*82}%`;
+    marker.style.left=`${29+((x.lng-126)/(129-126))*43}%`;
+    marker.style.top=`${10+((38.7-x.lat)/(38.7-34))*74}%`;
     marker.setAttribute('aria-label',`${x.name} ${x.detail}`);
     marker.addEventListener('click',()=>{
       placeCard.innerHTML=`<b>${x.name}</b>${x.detail}`;
