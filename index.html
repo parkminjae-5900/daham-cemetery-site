@@ -15,6 +15,7 @@
 <meta property="og:image" content="og-card.jpg">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ko_KR">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <link rel="stylesheet" href="styles.css">
 
 <script type="application/ld+json">
@@ -71,18 +72,26 @@
         <h2 id="contract-status-title">현재 계약현황</h2>
       </div>
       <div class="contract-status-grid">
-        <article class="status-card status-card-main">
+        <button type="button" class="status-card status-card-main is-active" data-status="contract" aria-pressed="true">
           <div class="status-number">4<small>건</small></div>
-          <div class="status-copy"><b>계약 완료</b><p>인제군 기린면 4기 · 보령시 남포면 양기리 2기<br>속초시 노학동 1기 · 양평군 무궁화공원 1기</p></div>
-        </article>
-        <article class="status-card">
+          <div class="status-copy"><b>계약중</b><p>인제군 기린면 4기 · 보령시 남포면 양기리 2기<br>속초시 노학동 1기 · 양평군 무궁화공원 1기</p></div>
+        </button>
+        <button type="button" class="status-card" data-status="visit" aria-pressed="false">
           <div class="status-number">2<small>건</small></div>
           <div class="status-copy"><b>답사 예약</b><p>논산시 · 제천시</p></div>
-        </article>
-        <article class="status-card">
+        </button>
+        <button type="button" class="status-card" data-status="consult" aria-pressed="false">
           <div class="status-number">2<small>건</small></div>
           <div class="status-copy"><b>사전 상담</b><p>고흥군 · 화성시</p></div>
-        </article>
+        </button>
+      </div>
+      <div class="contract-map-panel">
+        <div class="map-toolbar">
+          <b id="map-status-title">계약중 지역 4곳</b>
+          <button type="button" id="show-all-status">전체 보기</button>
+        </div>
+        <div id="contract-map" role="region" aria-label="계약 및 상담 지역 지도"></div>
+        <div class="map-legend" aria-label="지도 범례"><span><i class="legend-contract"></i>계약중</span><span><i class="legend-visit"></i>답사예약</span><span><i class="legend-consult"></i>사전상담</span></div>
       </div>
     </section>
     <div class="trust-bar" id="trust">
@@ -189,6 +198,7 @@
 </footer>
 
 <div class="mobile-cta"><a href="sms:01051985900?body=%EB%8B%A4%ED%95%A8%EC%9E%A5%EB%AC%98%20%EC%82%AC%EC%A7%84%EC%83%81%EB%8B%B4%EC%9D%84%20%EC%9A%94%EC%B2%AD%ED%95%A9%EB%8B%88%EB%8B%A4.">사진상담</a><a href="tel:01051985900">대표 전화</a></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="script.js"></script>
 </body>
 </html>
