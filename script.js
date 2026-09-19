@@ -62,3 +62,20 @@ document.getElementById('show-all-status')?.addEventListener('click',()=>{
   document.querySelectorAll('.status-card').forEach(x=>{x.classList.remove('is-active');x.setAttribute('aria-pressed','false')});
   renderContractMap('all');
 });
+
+function animateStatusCounts(){
+  document.querySelectorAll('.count-number').forEach((el,index)=>{
+    const target=Number(el.dataset.count||0);
+    const duration=2400+index*450;
+    const start=performance.now();
+    const tick=now=>{
+      const progress=Math.min((now-start)/duration,1);
+      const eased=1-Math.pow(1-progress,3);
+      el.textContent=String(Math.floor(target*eased));
+      if(progress<1)requestAnimationFrame(tick);
+      else el.textContent=String(target);
+    };
+    requestAnimationFrame(tick);
+  });
+}
+animateStatusCounts();
