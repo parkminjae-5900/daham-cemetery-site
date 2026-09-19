@@ -1,0 +1,13 @@
+{
+  "name": "다함장묘",
+  "short_name": "다함장묘",
+  "description": "묘지 이장·개장 전문. 대표 직접상담과 실제 현장 중심 서비스.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0b2b21",
+  "icons": [
+    {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"icon-512.png","sizes":"512x512","type":"image/png"}
+  ]
+}
