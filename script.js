@@ -8,7 +8,19 @@ form?.addEventListener('submit',e=>{
   const c=document.getElementById('contact').value.trim()||'연락처 미입력';
   const msg=`다함장묘 상담 요청\n묘지 기수: ${g}\n현장 지형: ${t}\n희망 진행: ${p}\n연락처: ${c}`;
   result.hidden=false;
-  result.innerHTML=`<b>상담내용이 만들어졌습니다.</b><br>${msg.replaceAll('\n','<br>')}<br><br><a href="sms:01051985900?body=${encodeURIComponent(msg)}">이 내용으로 문자 보내기 →</a>`;
+  const heading=document.createElement('b');
+  heading.textContent='상담내용이 만들어졌습니다.';
+  const message=document.createElement('span');
+  message.style.whiteSpace='pre-line';
+  message.textContent=msg;
+  const smsLink=document.createElement('a');
+  smsLink.href=`sms:01051985900?body=${encodeURIComponent(msg)}`;
+  smsLink.textContent='이 내용으로 문자 보내기 →';
+  // Keep all customer input in text nodes, never HTML markup.
+  result.replaceChildren(
+    heading,document.createElement('br'),message,
+    document.createElement('br'),document.createElement('br'),smsLink
+  );
 });
 
 const contractLocations=[
